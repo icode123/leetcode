@@ -7,6 +7,7 @@
 *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 * };
 */
+//递归+回溯的过程中按值传递与按引用传递的区别
 //方法一
 class Solution {
 public:
