@@ -31,3 +31,45 @@ public:
         return s.substr(maxi,maxl);
     }
 };
+
+//
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        string ret("");
+        if(s.size()==0) return ret;
+        vector<vector<bool>> table(s.size(),vector<bool>(s.size(),false));
+        int maxlength=1;
+        int maxindex=0;
+		for(int i=0;i<s.size();i++)
+		{
+			table[i][i]=true;
+		}
+		for(int l=2;l<=s.size();l++)
+			for(int i=0;i+l-1<s.size();i++)
+			{
+				int j=i+l-1;
+				if(s[i]==s[j])
+				{
+                    if(i+1==j)
+                    {
+                        table[i][j]=true;
+                        maxlength=2;
+                        maxindex=i;
+                    }
+                    else if(table[i+1][j-1])
+                    {
+                        table[i][j]=true;
+                        if(l>maxlength)
+                        {
+                            maxlength=l;
+                            maxindex=i;
+                        }
+                    }
+				}
+			}
+			return ret+s.substr(maxindex,maxlength);
+    }
+};
