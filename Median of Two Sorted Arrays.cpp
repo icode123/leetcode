@@ -1,4 +1,3 @@
-
 class Solution 
 {
 public:    double FindMedianInternal(int a[], int b[], int na, int nb, int left, int right)    
@@ -31,5 +30,31 @@ public:    double FindMedianInternal(int a[], int b[], int na, int nb, int left,
 		   double findMedianSortedArrays(int A[], int m, int B[], int n) 
 		   {        // Start typing your C/C++ solution below        // DO NOT write int main() function        
 			   return FindMedianInternal(A, B, m, n, max(0, (m + n) / 2 - n), min(m - 1, (m + n) / 2));    
+		   }
+};
+
+//Kth Element of Two Sorted Arrays
+
+class Solution 
+{
+public:    
+                   double FindMedianInternal(int a[], int b[], int na, int nb, int left, int right,int k)    
+  	           {        
+			   if(left > right)        
+			   {            
+				   return FindMedianInternal(b, a, nb, na, max(0, (k-1 - na), min(nb - 1, k-1));        
+			   }        
+			   int i = (left + right) / 2;        
+			   int j = k -1 - i - 1;        
+			   if(j >= 0 && j < nb && a[i] < b[j])            
+				   return FindMedianInternal(a, b, na, nb, i + 1, right, k);        
+			   else if(j + 1 >= 0 && j + 1 < nb && a[i] > b[j + 1])           
+				   return FindMedianInternal(a, b, na, nb, left, i - 1, k);        
+			   else  return a[i];      
+			    
+                   }    
+		   double findMedianSortedArrays(int A[], int m, int B[], int n, int k) 
+		   {        // Start typing your C/C++ solution below        // DO NOT write int main() function        
+			   return FindMedianInternal(A, B, m, n, max(0, k-1 - n), min(m - 1, k-1), k);    
 		   }
 };
