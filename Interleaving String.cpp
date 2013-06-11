@@ -1,5 +1,5 @@
 //DP
-
+//f[i][j]表示S1的前i个字符和S2的前j个字符能不能交织构成S3的前（i+j）个字符
 class Solution {
 private:
 bool f[1000][1000];
