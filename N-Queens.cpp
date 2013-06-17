@@ -1,0 +1,52 @@
+class Solution {
+private:
+vector<vector<string> > ret;
+int a[100];
+bool canUse[100];
+public:
+    bool check(int y,int n)
+    {
+        for(int i=0;i<n;i++)
+        {
+            if(abs(i-n)==abs(y-a[i])) return false;
+        }
+        return true;
+    }
+    void dfs(int dep,int maxdep)
+    {
+        if(dep==maxdep)
+        {
+            vector<string> ans;
+            for(int i=0;i<maxdep;i++)
+            {
+                string s;
+                for(int j=0;j<a[i];j++) s+='.';
+                s+='Q';
+                for(int j=a[i]+1;j<maxdep;j++) s+='.';
+                ans.push_back(s);
+            }
+            ret.push_back(ans);
+            return;
+        }
+        for(int i=0;i<maxdep;i++)
+        {
+            if(canUse[i] && check(i,dep))
+            {
+                canUse[i]=false;
+                a[dep]=i;
+                dfs(dep+1,maxdep);
+                canUse[i]=true;
+            }
+        }
+    }
+    vector<vector<string> > solveNQueens(int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        ret.clear();
+        if(n<=0) return ret;
+        memset(canUse,true,sizeof(canUse));
+        dfs(0,n);
+        return ret;
+    }
+};
+
