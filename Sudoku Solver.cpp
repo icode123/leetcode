@@ -82,3 +82,63 @@ public:
         return true;  
     }
 };
+
+class Solution {
+public:
+    bool check(int x,int y,vector<vector<char> > &board)
+    {
+        bool flag[9]={false};
+        for(int i=0;i<9;i++)
+            if(board[x][i]!='.')
+            {
+                if(!flag[board[x][i]-'1']) flag[board[x][i]-'1']=true;
+                else return false;
+            }
+        memset(flag,false,sizeof(flag));
+        for(int i=0;i<9;i++)
+            if(board[i][y]!='.')
+            {
+                if(!flag[board[i][y]-'1']) flag[board[i][y]-'1']=true;
+                   else return false;
+            }
+        memset(flag,false,sizeof(flag));
+        int xx=x/3*3;
+        int yy=y/3*3;
+        for(int i=0;i<3;i++)
+            for(int j=0;j<3;j++)
+            if(board[xx+i][yy+j]!='.')
+            {
+                if(!flag[board[xx+i][yy+j]-'1']) flag[board[xx+i][yy+j]-'1']=true;
+                   else return false;
+            }    
+        return true;
+    }
+    bool dfs(vector<vector<char> > &board)
+    {
+        for(int i=0;i<9;i++)
+           for(int j=0;j<9;j++)
+           {
+               if(board[i][j]=='.')
+               {
+                   for(int k='1';k<='9';k++)
+                   {
+                       board[i][j]=k;
+                       if(check(i,j,board) && dfs(board)) return true;
+                       board[i][j]='.';
+                   }
+                   return false;
+               }
+           }
+        return true;
+    }
+    void solveSudoku(vector<vector<char> > &board) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        dfs(board);
+    }
+};
+
+
+
+
+
