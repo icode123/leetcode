@@ -1,4 +1,9 @@
-int len1=word1.size();
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        // IMPORTANT: Please reset any member data you declared, as
+        // the same Solution instance will be reused for each test case.
+        int len1=word1.size();
         int len2=word2.size();
         vector<vector<int>> res(len1+1,vector<int>(len2+1));
         res[0][0]=0;
@@ -11,3 +16,5 @@ int len1=word1.size();
                else res[i][j]=min(res[i-1][j-1],min(res[i][j-1],res[i-1][j]))+1;
            }
         return res[len1][len2];
+    }
+};
